@@ -1,0 +1,49 @@
+doctype html
+html
+	head
+		block title
+			title= APP_NAME
+
+		meta(charset='utf-8')
+		meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+		link(rel='stylesheet' href='/css/bootstrap.min.css')
+		link(rel='stylesheet' href='/css/bootstrap-datepicker.standalone.min.css')
+
+		script(type='text/javascript' src='/js/jquery-3.1.0.min.js')
+		script(type='text/javascript' src='/js/jquery.tablesorter.min.js')
+		script(type='text/javascript' src='/js/moment.min.js')
+		script(type='text/javascript' src='/js/bootstrap.min.js')
+		script(type='text/javascript' src='/js/bootstrap-datepicker.min.js')
+		script(type='text/javascript' src='/js/bootstrap-datepicker.zh-CN.min.js')
+
+		block styles
+			style(type='text/css').
+
+		block scripts
+			script(type='text/javascript').
+				$(document).ready(function() {
+				});
+	body
+		nav.navbar.navbar-inverse.navbar-fixed-top
+			div.container-fluid
+				div.navbar-header
+					a.navbar-brand(href='/')
+						block brand
+							span= APP_NAME
+				div.navbar-collapse.collapse
+					ul.nav.navbar-nav#global-menu
+						li
+							a(href='/') Link
+					script(type='application/javascript').
+						$('#global-menu a[href="' + window.location.pathname + '"]').closest('li').addClass('active')
+					ul.nav.navbar-nav.navbar-right
+						li
+							a(href='#none' onclick='return window.scrollTo(0, 0) && false;')
+								span.glyphicon.glyphicon-home &nbsp;
+						li
+							a(href='/logout') Logout
+
+		div.container-fluid(role='main')
+			block content
+				h4= APP_NAME

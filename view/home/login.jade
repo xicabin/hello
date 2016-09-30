@@ -1,0 +1,21 @@
+extends ../page.jade
+block title
+	title Login
+block page
+	div.row
+		div.col-md-offset-2.col-md-8
+			div(style={ margin: '20px 0px', visibility: message ? 'visible' : 'hidden' })
+				div.alert.alert-warning(role='alert')= message || '&nbsp;'
+			div.panel.panel-default
+				div.panel-heading Login
+				div.panel-body
+					form(method='POST' action='/login')
+						div.form-group
+							label(for='username') Username
+							input#username(type='text' name='username' class='form-control' placeholder='Username')
+						div.form-group
+							label(for='password') Password
+							input#password(type='password' name='password' class='form-control' placeholder='Password')
+						button(type='submit' class='btn btn-default') Login
+					script(text='text/javascript').
+						$('#username').focus();

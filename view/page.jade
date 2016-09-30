@@ -1,0 +1,29 @@
+doctype html
+html
+	head
+		block title
+			title= APP_NAME
+
+		meta(charset='utf-8')
+		meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+		link(rel='stylesheet' href='/css/bootstrap.min.css')
+
+		script(type='text/javascript' src='/js/jquery-3.1.0.min.js')
+		script(type='text/javascript' src='/js/jquery.tablesorter.min.js')
+		script(type='text/javascript' src='/js/bootstrap.min.js')
+
+		block styles
+			style(type='text/css').
+
+		block scripts
+			script(type='text/javascript').
+				$(document).ready(function() {
+				});
+
+	body
+		div.container-fluid
+			div.row
+				div.col-md-offset-3.col-md-6
+					block page
+						h4= APP_NAME
