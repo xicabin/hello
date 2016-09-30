@@ -4,10 +4,6 @@
   "description": "Hello, world",
   "main": "app.js",
   "scripts": {
-    "deploy": "rsync -vrlptz app.js package.json src view web scripts darcy@101.201.100.110:/home/darcy/var/www/aloha/ && ssh darcy@101.201.100.110 'cd /home/darcy/var/www/aloha && npm install'",
-    "start": "ssh darcy@101.201.100.110 'forever start /home/darcy/var/www/aloha/app.js'",
-    "stop": "ssh darcy@101.201.100.110 'forever stop /home/darcy/var/www/aloha/app.js'",
-    "restart": "ssh darcy@101.201.100.110 'forever restart /home/darcy/var/www/aloha/app.js'"
   },
   "author": "c.young@qq.com",
   "license": "ISC",
