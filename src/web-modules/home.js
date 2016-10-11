@@ -19,6 +19,9 @@ function* login() {
 			message = e.message
 		}
 		if (user) {
+			user.logined = new Date()
+			yield user.save()
+
 			this.session.user = user
 			this.session.expired = Date.now() + 1000 * 60 * 60 * 24 * 7
 			this.redirect('/index')

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const mongoose = require('mongoose')
 const conf = require('./conf.js')
@@ -16,7 +16,9 @@ const UserSchema = new Schema({
 		unique: true
 	},
 	password: String,
-	roles: [ String ]
+	roles: [ String ],
+	logined: Date,
+	created: Date
 })
 
 module.exports = {

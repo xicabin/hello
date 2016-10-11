@@ -39,10 +39,10 @@ html
 						$('#global-menu a[href="' + window.location.pathname + '"]').closest('li').addClass('active')
 					ul.nav.navbar-nav.navbar-right
 						li
+							a(href='/logout') Logout
+						li
 							a(href='#none' onclick='return window.scrollTo(0, 0) && false;')
 								span.glyphicon.glyphicon-home &nbsp;
-						li
-							a(href='/logout') Logout
 
 		div.container-fluid(role='main')
 			block content

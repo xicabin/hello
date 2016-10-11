@@ -12,10 +12,10 @@ block page
 					form(method='POST' action='/login')
 						div.form-group
 							label(for='username') Username
-							input#username(type='text' name='username' class='form-control' placeholder='Username')
+							input#username(type='text' name='username' class='form-control')
 						div.form-group
 							label(for='password') Password
-							input#password(type='password' name='password' class='form-control' placeholder='Password')
-						button(type='submit' class='btn btn-default') Login
+							input#password(type='password' name='password' class='form-control')
+						button(type='submit' class='btn btn-primary') Login
 					script(text='text/javascript').
 						$('#username').focus();
