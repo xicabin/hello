@@ -15,6 +15,7 @@ const port = process.env['port'] || 6969
 app.keys = [ process.env['key'] || '~yichexiguakeguile~' ]
 
 app.context.render = require(__base + '/renderer.js')
+app.context.myId = function() { return this.session && this.session.user ? this.session.user._id : null }
 
 app.use(session(app))
 app.use(bodyparser({ formLimit: '20mb' }))
