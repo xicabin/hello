@@ -35,7 +35,7 @@ function* saveAjax(scaffoldName) {
 	let document = null
 	try {
 		if (id) {
-			document = yield model.findByIdAndUpdate(id, fields, { new: true, runValidators: true })
+			document = yield model.findOneAndUpdate({ _id: id, user_id: this.myId() }, fields, { new: true, runValidators: true })
 		} else {
 			document = yield model.create(fields)
 		}
