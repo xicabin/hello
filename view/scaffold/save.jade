@@ -1,0 +1,68 @@
+extends ../layout.jade
+block styles
+	style(type='text/css').
+		.form-group label { font-weight: normal; text-transform: capitalize; }
+		.form-group label.required { font-weight: bold; }
+block content
+	div.row(style='margin-top:20px')
+		div.col-md-offset-3.col-md-6
+			div.alert(role='alert')#alert &nbsp;
+			div.panel.panel-default
+				div.panel-heading= model.showName || model.modelName
+				div.panel-body
+					- let url = `/r/scaffold/${model.scaffoldName}/save`
+					form(action=url method='POST' role='form').form-horizontal#save
+						each field in Object.keys(fields).sort((a, b) => (fields[a].options.showIndex || 0) - (fields[b].options.showIndex || 0))
+							- let options = fields[field].options
+							- let value = typeof(document) === 'undefined' ? (typeof(options.default) === 'function' ? options.default() : options.default) : document[field]
+							if field !== '_id' && !options.autofill
+								div.form-group.form-group-sm
+									label(class={required: options.required === true}).control-label.col-md-2= options.showName || field
+									div.col-md-10
+										if options.showAs === 'textarea'
+											textarea.form-control(name=field class={required: options.required === true} rows='4')= value
+										else if options.showAs === 'select' && options.enum && options.enum.length
+											select.form-control(name=field class={required: options.required === true})
+												each item in options.enum
+													option(value=item selected=(value === item ? 'selected' : null))= item
+										else if options.showAs === 'radio' && options.enum && options.enum.length
+											each item in options.enum
+												label.radio-inline
+													input(name=field checked=(value === item ? 'checked' : null) type='radio' value=item)
+													small= item
+										else
+											input.form-control(name=field class={required: options.required === true} value=value)
+						div.form-group
+							div.col-md-offset-2.col-md-10
+								button.btn.btn-sm.btn-primary(style='width:100px;') Save
+								input(type='hidden' name='_id' value=(typeof(document) === 'undefined' ? null : document._id))
+					script(type='text/javascript').
+						$('form#save').on('scaffold.documentupdate', function() {
+							var form = $(this);
+							$(':submit', form).text($('[name="_id"]', form).val() ? 'Save' : 'Add');
+						}).on('submit', function() {
+							var form = $(this), emptyField = false;
+							$('input.required,textarea.required', form).each(function() {
+								return $(this).val() || ((emptyField = $(this)) && false);
+							});
+							if (emptyField) {
+								emptyField.focus();
+							} else {
+								var clazz = 'alert-success alert-danger alert-info';
+								var now = new Date();
+								$('#alert').removeClass(clazz).addClass('alert-info').text('Updating...');
+								$(':submit', form).prop('disabled', 'disabled');
+								$.post(form.attr('action'), form.serialize()).done(function(res) {
+									console.log('D', res.document);
+									$('[name="_id"]', form).val(res.document._id);
+									form.trigger('scaffold.documentupdate');
+									$('#alert').removeClass(clazz).addClass('alert-success').text('Saved at ' + now.toString());
+								}).fail(function(e) {
+									console.error('E', e);
+									$('#alert').removeClass(clazz).addClass('alert-danger').text(e.responseText || e.toString());
+								}).always(function() {
+									$(':submit', form).prop('disabled', null);
+								});
+							}
+							return false;
+						}).trigger('scaffold.documentupdate');
