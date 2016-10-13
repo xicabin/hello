@@ -1,2 +1,2 @@
 # hello
-A simple demo web app with nodejs, koa, jQuery and Bootstrap
+A simple demo web app with NodeJS, mongoose, koa, jQuery and Bootstrap
