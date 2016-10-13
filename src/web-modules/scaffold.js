@@ -19,10 +19,6 @@ function getAutofill(context, model, field, fall) {
 	return fall
 }
 
-function* index(scaffoldName) {
-	// FIXME not implement, find pages by user_id with sort, pagination, filter and ...
-}
-
 function* saveAjax(scaffoldName) {
 	let model = db.scaffold[scaffoldName] || this.throw(`Unsupported model "${scaffoldName}"`, 400)
 
@@ -81,7 +77,6 @@ module.exports = {
 	use: (app) => {
 		const R = require('koa-route')
 		app.use(R.post('/r/scaffold/:model/save', authz.withAuth(saveAjax)))
-		app.use(R.get('/scaffold/:model/index', authz.withAuth(index)))
 		app.use(R.get('/scaffold/:model/add', authz.withAuth(add)))
 		app.use(R.get('/scaffold/:model/edit/:id', authz.withAuth(edit)))
 	}
